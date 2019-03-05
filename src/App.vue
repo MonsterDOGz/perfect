@@ -1,23 +1,44 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <index-header></index-header>
     <router-view/>
+    <index-footer></index-footer>
+    <index-fixedbar></index-fixedbar>
   </div>
 </template>
 
 <script>
+import IndexHeader from './components/pub/Header'
+import IndexFooter from './components/pub/Footer'
+import IndexFixedbar from './components/pub/FixedBar'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    IndexHeader,
+    IndexFooter,
+    IndexFixedbar
+  }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body{
+  font-size: 12px;
+  color: #474747;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f5f5f5;
+}
+body,ul,li,a,h1,h2,h3,h4,h5,h6,p,input,
+textarea,table,tr,td,th{
+  margin:0;
+  padding:0;
+}
+a {
+  text-decoration: none;
+  color: #666;
+}
+ul {
+  list-style: none;
 }
 </style>

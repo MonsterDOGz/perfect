@@ -1,0 +1,212 @@
+<template>
+    <div class="header">
+        <div class="header_top">
+            <div class="wrap">
+                <span class="welcome">欢迎来到完美世界周边商城！</span>
+                <div class="header_cart">
+                    <a href="javascript:;" class="text">
+                        <span class="icon"></span>
+                        购物车（<span class="cartNum">0</span>）
+                    </a>
+                    <div class="cart_list" style="display:none;height:0px">
+
+                    </div>
+                </div>
+                <ul class="user_info">
+                    <li class="first_li"><a href="javascript:;">我的订单</a></li>
+                    <li><a href="javascript:;">我的关注</a></li>
+                </ul>
+                <ul class="user_info">
+                    <li class="first_li"><a href="javascript:;">登录</a></li>
+                    <li><a href="javascript:;">注册</a></li>
+                </ul>
+                <ul class="user_info" style="display:none;">
+                    <li class="first_li">
+                        <span>
+                            <a href="javascript:;">15256943949，</a>
+                            <a href="javascript:;">退出</a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="header_nav">
+            <div class="wrap">
+                <a href="javascript:;" class="logo_wm">
+                    <img src="/staticimg/logo_wm.png" title="完美商城">
+                </a>
+                <a href="javascript:;" class="logo_shop">
+                    <img src="/staticimg/logo_shop.png" alt="完美商城">
+                </a>
+                <div class="all_wares">
+                    <p class="text">
+                        <span></span>全部商品
+                    </p>
+                </div>
+                <ul class="nav">
+                    <li><a href="javascript:;">首页</a></li>
+                    <li><a href="javascript:;">完美世界周边</a></li>
+                    <li><a href="javascript:;">DOTA2专区</a></li>
+                    <li><a href="javascript:;">FAQ</a></li>
+                </ul>
+                <div class="header_search">
+                    <form class="cf">
+                        <input type="text" class="text">
+                        <input type="button" class="btn">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style lang="stylus" scoped>
+@import '~styles/index.styl'
+.header
+    .header_top
+        height 33px
+        background-color #474747
+        color #ccc
+        .wrap
+            width 1190px
+            margin 0 auto
+            .welcome
+                margin-top 7px
+                float left
+                cursor default
+            .header_cart
+                width 138px
+                position relative
+                z-index 2
+                float right
+                .text
+                    height 33px
+                    line-height 33px
+                    background-color #1e1e1e
+                    text-align center
+                    display block
+                    &:hover
+                        color #e90404
+                    .icon
+                        display inline-block
+                        margin-right 8px
+                        width 20px
+                        height 14px
+                        overflow hidden
+                        background url(/staticimg/base.png) -164px -20px
+                        vertical-align -2px
+                    .cartNum
+                        color #db313e
+                        font-weight bold
+                .cart_list
+                    position absolute
+                    top 33px
+                    right 0
+                    width 350px
+                    background-color #fafafa
+                    z-index 1
+                    box-shadow 0 2px 3px #ccc
+                    overflow hidden
+            .user_info
+                margin 11px 35px 0 0
+                float right
+                li
+                    float left
+                    padding 0 7px
+                    height 11px
+                    line-height 11px
+                    border-left 1px solid #666
+                .first_li
+                    border-left none
+                a
+                    display inline-block
+                    color #ccc
+                    transition 0.2s
+                    &:hover
+                        color #fff
+    .header_nav
+        height 101px
+        background-color #fff
+        border-bottom 3px solid #de2f3c
+        box-shadow 0 3px 3px #ccc
+        .wrap
+            width 1190px
+            margin 0 auto
+            .logo_wm
+                width 183px
+                text-align center
+                height 72px
+                padding-top 29px
+                background-color #c20315
+                margin-bottom -3px
+                display block
+                float left
+                img
+                    width 120px
+                    height 41px
+            .logo_shop
+                margin 37px 0 0 34px
+                display block
+                float left
+            .all_wares
+                position relative
+                width 175px
+                margin-left 50px
+                text-indent 19px
+                z-index 1
+                float left
+                .text
+                    height 101px
+                    line-height 101px
+                    font-size 15px
+                    cursor pointer
+                    span
+                        display inline-block
+                        width 15px
+                        height 13px
+                        margin-right 7px
+                        background url(/staticimg/base.png) no-repeat -24px 0
+                        vertical-align -1px
+            .nav
+                margin-top 40px
+                float left
+                li
+                    float left
+                    padding 0 15px
+                    font-size 15px
+                    a
+                        color #474747
+                        transition 0.2s
+                        &:hover
+                            color #e90404
+            .header_search
+                position relative
+                width 320px
+                height 41px
+                margin-top 30px
+                z-index 1
+                float right
+                .cf
+                    .text
+                        float left
+                        width 263px
+                        height 39px
+                        line-height 39px
+                        padding 0 5px
+                        border 1px solid #ccc
+                        border-right none
+                        outline none
+                        font-size 14px
+                    .btn
+                        float right
+                        width 46px
+                        height 41px
+                        border 0
+                        background #e32332 url(/staticimg/search.png) no-repeat 50%
+</style>
