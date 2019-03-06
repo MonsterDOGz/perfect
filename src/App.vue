@@ -26,7 +26,7 @@ export default {
 body{
   font-size: 12px;
   color: #474747;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
   background-color: #f5f5f5;
 }
 body,ul,li,a,h1,h2,h3,h4,h5,h6,p,input,

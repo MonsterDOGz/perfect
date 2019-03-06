@@ -5,16 +5,16 @@
                 <a href="javascript:;" class="needLogin">
                     <span></span>
                 </a>
-                <p class="tip" style="display:none;left:-128px;opacity:0;">
-                    <a href="javascript:;" class="needLogin">个人中心</a>
+                <p class="tip">
+                    <a href="javascript:;" class="needL">个人中心</a>
                 </p>
             </li>
             <li class="myLike">
                 <a href="javascript:;" class="needLogin">
                     <span></span>
                 </a>
-                <p class="tip" style="display:none;left:-128px;opacity:0;">
-                    <a href="javascript:;" class="needLogin">我的关注</a>
+                <p class="tip">
+                    <a href="javascript:;" class="needL">我的关注</a>
                 </p>
             </li>
             <li class="fixed_cart">
@@ -30,8 +30,8 @@
                 <a href="javascript:;" class="needLogin">
                     <span></span>
                 </a>
-                <p class="tip" style="display:none;left:-128px;opacity:0;">
-                    <a href="javascript:;" class="needLogin">在线客服</a>
+                <p class="tip">
+                    <a href="javascript:;" class="needL">在线客服</a>
                 </p>
             </li>
         </ul>
@@ -69,10 +69,17 @@ export default {
             li
                 position relative
                 padding-bottom 6px
+                &:hover .tip
+                    visibility visible
+                    opacity 1
+                    left -78px
                 .needLogin
                     height 35px
                     display block
                     color #fff
+                    transition 0.2s
+                    &:hover
+                        background-color #e32330
                     span
                         display inline-block
                 .tip
@@ -85,7 +92,12 @@ export default {
                     text-align left
                     background url(/staticimg/base.png) no-repeat -94px -90px
                     color #fff
-                    .needLogin
+                    // display none
+                    visibility hidden
+                    left -128px
+                    opacity 0
+                    transition 0.2s ease-out
+                    .needL
                         height 35px
                         display block
                         color #fff
@@ -107,6 +119,13 @@ export default {
                 a
                     display block
                     color #fff
+                    transition 0.2s
+                    &:hover
+                        background-color #e32330
+                    &:hover span i
+                        background-position -184px -38px
+                    &:hover span .cartNum
+                        background-color #0a0a0a
                     span
                         width 22px
                         margin 0 auto
@@ -131,7 +150,7 @@ export default {
                             font-size 11px
                             text-align center
                             background-color #df2f3a
-                            border-radius 11px
+                            border-radius 50%
                             font-style normal
                             padding 0
             .online
