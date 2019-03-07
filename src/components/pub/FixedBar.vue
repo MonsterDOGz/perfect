@@ -59,7 +59,7 @@ export default {
         width 35px
         background-color #0a0a0a
         text-align center
-        z-index 2
+        z-index 4
         ul
             position absolute
             top 50%

@@ -128,6 +128,8 @@ export default {
 <style lang="stylus" scoped>
 @import '~styles/index.styl'
 .header
+    position relative
+    z-index 3
     .header_top
         height 33px
         background-color #474747
@@ -203,7 +205,6 @@ export default {
         height 101px
         background-color #fff
         border-bottom 3px solid #de2f3c
-        box-shadow 0 3px 3px #ccc
         .wrap
             width 1190px
             margin 0 auto
@@ -232,6 +233,7 @@ export default {
                 float left
                 &:hover .wares
                     display block
+                    z-index 9999
                 &:hover .text
                     background-color #e32331
                     color #fff
@@ -254,6 +256,7 @@ export default {
                     position absolute
                     top 101px
                     left 0
+                    float left
                     padding-bottom 10px
                     width 100%
                     font-size 14px
