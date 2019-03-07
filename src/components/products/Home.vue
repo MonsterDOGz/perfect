@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <product-detail></product-detail>
+    <product-detail :getInfo="info"></product-detail>
     <product-info></product-info>
   </div>
 </template>
@@ -10,9 +10,29 @@ import ProductDetail from './components/detail.vue'
 import ProductInfo from './components/info.vue'
 
 export default {
+  data () {
+    return {
+      info: ''
+    }
+  },
   components: {
     ProductDetail,
     ProductInfo
+  },
+  methods: {
+    product (pid) {
+      var url = `/api/product/product?pid=${pid}`
+      this.axios.get(url).then(result => {
+        this.info = result.data.data[0]
+        console.log(this.info)
+        this.info.pic = this.info.pic.split(',')
+        this.info.introduce = this.info.introduce.split(',')
+        console.log(this.info)
+      })
+    }
+  },
+  mounted () {
+    this.product(this.$route.params.pid)
   }
 }
 </script>

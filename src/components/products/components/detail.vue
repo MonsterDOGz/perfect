@@ -14,8 +14,8 @@
           <div class="bd">
             <div class="tempWrap">
               <ul style="width:1290px;">
-                <li v-for="item in 3" :key="item">
-                  <img src="/staticimg/729f65ee-1aa9-4d32-a56c-fa387b21dfeb.jpg">
+                <li v-for="item in getInfo.pic" :key="item">
+                  <img :src="'/api/'+item">
                   </li>
               </ul>
             </div>
@@ -30,10 +30,10 @@
         </div>
         <div class="property">
           <div class="title">
-            <h1>诛仙手游-loz灵猴模型玩具</h1>
-            <p>诛仙手游 绑定虚拟 拼插玩具 人气灵猴</p>
+            <h1>{{getInfo.pname}}</h1>
+            <p>{{getInfo.label}}</p>
           </div>
-          <p class="price">￥ 69.00</p>
+          <p class="price">{{getInfo.price}}</p>
           <table>
             <tbody>
               <tr>
@@ -96,7 +96,15 @@
 
 <script>
 export default {
-
+  props: ['getInfo'],
+  methods: {
+    a () {
+      console.log(this.getInfo)
+    }
+  },
+  mounted () {
+    this.a()
+  }
 }
 </script>
 
