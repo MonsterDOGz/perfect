@@ -1,13 +1,13 @@
 <template>
   <div class="allFloor">
-    <div class="floor" v-for="floor in 5" :key="floor">
+    <div class="floor" v-for="item in floor" :key="item.fid">
       <div class="wrap">
         <div class="title">
           <p class="title_left">
             <span class="icon">
-              <img src="/staticimg/title_dota.jpg">
+              <img :src="/api/+item.icon">
             </span>
-            Dota2神秘商店
+            {{item.fname}}
           </p>
           <a href="javasctipt:;" class="title_right">
             更多
@@ -16,24 +16,26 @@
         </div>
         <div class="body">
           <a href="javascript:;" class="body_left">
-            <img src="/staticimg/body_dota.jpg">
+            <img :src="/api/+item.fpic">
           </a>
           <div class="body_right">
             <div class="content">
               <div class="product_slideshow">
                 <!-- 楼层轮播图 -->
                 <el-carousel :interval="5000" arrow="always">
-                  <el-carousel-item v-for="item in 4" :key="item">
-                    <h3>{{ item }}</h3>
+                  <el-carousel-item v-for="ite in item.fBanner" :key="ite.fbid">
+                    <router-link :to="'/products/'+ite.pid">
+                      <img :src="'/api'+ite.fbname" width="467px" height="300px">
+                    </router-link>
                   </el-carousel-item>
                 </el-carousel>
               </div>
-              <div class="product_item" v-for="item in 6" :key="item">
-                <a href="javascript:;">
-                  <img src="/staticimg/dota1.jpg" title="DOTA2 - 扭蛋手办II">
-                </a>
-                <p class="product_name" title="DOTA2 - 扭蛋手办II">DOTA2 - 扭蛋手办II</p>
-                <p class="price">￥69.00</p>
+              <div class="product_item" v-for="it in item.fProduct" :key="it.pid">
+                <router-link :to="'/products/'+it.pid">
+                  <img :src="'/api/'+it.pic[0]" :title="it.pname">
+                </router-link>
+                <p class="product_name" :title="it.pname">{{it.pname}}</p>
+                <p class="price">{{it.price}}</p>
                 <div class="add">
                   <a href="javascript:;" class="btn" title="加入购物车">
                     <span></span>
@@ -58,7 +60,27 @@
 
 <script>
 export default {
-
+  data () {
+    return {
+      floor: ''
+    }
+  },
+  methods: {
+    getFloor () {
+      var url = `/api/product/indexFloor`
+      this.axios.get(url).then(result => {
+        this.floor = result.data.data
+        for (let i = 0; i < this.floor.length; i++) {
+          for (let n = 0; n < this.floor[i].fProduct.length; n++) {
+            this.floor[i].fProduct[n].pic = this.floor[i].fProduct[n].pic.split(',')
+          }
+        }
+      })
+    }
+  },
+  created () {
+    this.getFloor()
+  }
 }
 </script>
 

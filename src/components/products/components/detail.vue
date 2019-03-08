@@ -4,8 +4,8 @@
       <div class="wrap">
         <a href="javascript:;">首页</a>>
         <a href="javascript:;">完美世界游戏周边</a>>
-        <a href="javascript:;">完美世界周边</a>>
-        <a href="javascript:;">诛仙手游-loz灵猴模型玩具</a>
+        <a href="javascript:;">{{getInfo.cid}}</a>>
+        <a href="javascript:;">{{getInfo.pname}}</a>
       </div>
     </div>
     <div class="detail">
@@ -13,7 +13,7 @@
         <div class="gallery">
           <div class="bd">
             <div class="tempWrap">
-              <ul style="width:1290px;">
+              <ul style="width:1720px;">
                 <li v-for="item in getInfo.pic" :key="item">
                   <img :src="'/api/'+item">
                   </li>
@@ -22,8 +22,8 @@
           </div>
           <div class="hd">
             <ul>
-              <li v-for="item in 3" :key="item">
-                <img src="/staticimg/729f65ee-1aa9-4d32-a56c-fa387b21dfeb_100.jpg">
+              <li v-for="item in getInfo.pic" :key="item">
+                <img :src="'/api/'+item">
               </li>
             </ul>
           </div>
@@ -49,12 +49,12 @@
               <tr>
                 <td colspan="2">
                   <table style="margin-left: -2px;">
-                    <tbody>
+                    <tbody display="none">
                       <tr>
                         <th>颜色：</th>
                         <td>
-                          <a href="javascript:;" class="option" v-for="item in 2" :key="item">
-                            普通灵猴款（灰色）
+                          <a href="javascript:;" class="option" v-for="item in getInfo.style" :key="item">
+                            {{item}}
                             <em></em>
                           </a>
                         </td>
@@ -72,10 +72,10 @@
                     <span class="add"></span>
                   </span>
                   <span class="stock">
-                    （库存<font>498</font>件）
+                    （库存<font>{{getInfo.stock}}</font>件）
                   </span>
                   <span class="sold">
-                    已售出<font>2</font>件
+                    已售出<font>{{getInfo.pcount}}</font>件
                   </span>
                 </td>
               </tr>
@@ -98,12 +98,8 @@
 export default {
   props: ['getInfo'],
   methods: {
-    a () {
-      console.log(this.getInfo)
-    }
   },
   mounted () {
-    this.a()
   }
 }
 </script>
@@ -171,6 +167,8 @@ export default {
               img
                 cursor pointer
                 margin-right 10px
+                width 100px
+                height 100px
       .property
         width 684px
         font-size 14px

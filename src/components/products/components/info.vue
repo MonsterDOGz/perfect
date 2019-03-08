@@ -4,12 +4,12 @@
       <div class="left">
         <span>猜你喜欢</span>
         <ul>
-          <li v-for="item in 10" :key="item">
+          <li v-for="item in productList" :key="item.pid">
             <a href="javascript:;">
-              <img src="/staticimg/cc88ffc2b6ae409ba67d7d2d7fb31d58_120.jpg">
+              <img :src="'/api/'+item.pic[0]">
             </a>
-            <p class="name" title="梦间集-角色文件夹">梦间集-角色文件夹</p>
-            <p class="price">￥15.00</p>
+            <p class="name" title="梦间集-角色文件夹">{{item.pname}}</p>
+            <p class="price">{{item.price}}</p>
           </li>
         </ul>
       </div>
@@ -27,8 +27,8 @@
         </ul>
         <div class="desc_pane">
           <div class="content" style="display:block;">
-            <p v-for="item in 3" :key="item">
-              <img src="/staticimg/1517992712916078117.jpg" style="float:left;">
+            <p v-for="item in getInfo.introduce" :key="item">
+              <img :src="'/api/'+item" style="float:left;">
             </p>
           </div>
           <div class="content" style="display:none;">
@@ -133,7 +133,28 @@
 
 <script>
 export default {
-
+  props: ['getInfo'],
+  data () {
+    return {
+      productList: ''
+    }
+  },
+  methods: {
+    getAll () {
+      var url = `/api/product/allProduct`
+      this.axios.get(url).then(result => {
+        this.productList = result.data.data
+        for (let i = 0; i < this.productList.length; i++) {
+          this.productList[i].pic = this.productList[i].pic.split(',')
+        }
+        let random = Math.floor(Math.random() * 25)
+        this.productList = this.productList.slice(random, random + 6)
+      })
+    }
+  },
+  mounted () {
+    this.getAll()
+  }
 }
 </script>
 

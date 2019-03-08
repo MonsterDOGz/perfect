@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <product-detail :getInfo="info"></product-detail>
-    <product-info></product-info>
+    <product-info :getInfo="info"></product-info>
   </div>
 </template>
 
@@ -24,10 +24,15 @@ export default {
       var url = `/api/product/product?pid=${pid}`
       this.axios.get(url).then(result => {
         this.info = result.data.data[0]
-        console.log(this.info)
+        // console.log(this.info)
         this.info.pic = this.info.pic.split(',')
         this.info.introduce = this.info.introduce.split(',')
-        console.log(this.info)
+        this.info.style = this.info.style.split(',')
+        var url = `/api/product/productClass?cid=${this.info.cid}`
+        this.axios.get(url).then(result => {
+          this.info.cid = result.data.data[0].class
+        })
+        // console.log(this.info)
       })
     }
   },
