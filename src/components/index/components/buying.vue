@@ -2,9 +2,9 @@
   <div class="buying">
     <div class="wrap">
       <div class="ad_list">
-        <a href="javascript:;" class="ad_link"><img src="/staticimg/ad1.jpg"></a>
-        <a href="javascript:;" class="ad_link"><img src="/staticimg/ad2.jpg"></a>
-        <a href="javascript:;" class="ad_link"><img src="/staticimg/ad3.jpg"></a>
+        <router-link to="/products/16" class="ad_link"><img src="/staticimg/ad1.jpg"></router-link>
+        <router-link to="/products/20" class="ad_link"><img src="/staticimg/ad2.jpg"></router-link>
+        <router-link to="/products/1" class="ad_link"><img src="/staticimg/ad3.jpg"></router-link>
       </div>
     </div>
   </div>

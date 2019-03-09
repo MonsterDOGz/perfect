@@ -1,0 +1,149 @@
+<template>
+  <div class="loginBox">
+    <div class="msgbox">
+      <div class="closeBox">
+        <span></span>
+      </div>
+      <div class="bodyBox">
+        <div class="userLog">
+          <h6>账号登录</h6>
+          <div class="logBox">
+            <div class="loginTip">账号格式不正确</div>
+            <p>
+              <input type="text" placeholder="账号" size="15" maxlength="50" class="username">
+              <span class="clearUsername"></span>
+            </p>
+            <p>
+              <input type="password" size="15" maxlength="16" placeholder="密码" class="password">
+            </p>
+            <p>
+              <input type="button" value="登录" class="loginBtn">
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style lang="stylus" scoped>
+@import '~styles/index.styl'
+  .loginBox
+    .msgbox
+      position fixed
+      z-index 9999
+      left 50%
+      top 50%
+      background-color #fff
+      // width 624px
+      // height 364px
+      width 500px
+      height 300px
+      box-shadow rgba(0,0,0,0.3) 0px 0px 3px
+      transform translate(-50%,-50%)
+      border 1px solid rgb(151,151,151)
+      .closeBox
+        height 50px
+        border-top 3px solid rgb(220,73,73);
+        background url(/staticimg/c_line.png) no-repeat 572px 0px
+        span
+          float right
+          width 46px
+          height 20px
+          cursor pointer
+          border-bottom-left-radius 3px
+          border-bottom-right-radius 3px
+          background url(/staticimg/closebox.png) no-repeat center center
+          &:hover
+            background url(/staticimg/closebox_hover.png) no-repeat center center rgb(220,73,73)
+      .bodyBox
+        height 311px
+        background-color #fff
+        .userLog
+          width 290px
+          margin 0 auto
+          h6
+            color #999
+            font-size 14px
+          .logBox
+            padding-top 35px
+            position relative
+            .loginTip
+              color #ff4c4c
+              font-size 12px
+              border 1px solid #ffbdbf
+              border-radius 5px
+              width 217px
+              min-height 30px
+              line-height 20px
+              background url(/staticimg/mbwrong.png) no-repeat 10px center #ffebec
+              padding 5px 0 0 30px
+              position absolute
+              left 0
+              top 10px
+              z-index 1
+              &:after
+                content ''
+                position absolute
+                background url(/staticimg/sjts.png) no-repeat
+                width 14px
+                height 6px
+                left 22px
+                bottom -6px
+            p
+              padding-bottom 12px
+              position relative
+              .username
+                background url(/staticimg/user_1.png) no-repeat 10px center
+                color #666
+                padding 1px 30px 1px 35px
+                width 182px
+                height 40px
+                border 1px solid #ddd
+                border-radius 5px
+                line-height 40px
+                outline none
+                &:focus
+                  border-color #bababa
+              .clearUsername
+                position absolute
+                right 50px
+                top 12px
+                background url(/staticimg/clearusername.png) no-repeat
+                width 20px
+                height 20px
+              .password
+                background url(/staticimg/password.png) no-repeat 10px center
+                clor #999
+                padding-right 10px
+                width 202px
+                height 40px
+                border 1px solid #ddd
+                border-radius 5px
+                padding-left 35px
+                line-height 40px
+                outline none
+                &:focus
+                  border-color #bababa
+              .loginBtn
+                background-color #ff4c4c
+                width 142px
+                height 36px
+                border 0 none
+                outline none
+                border-radius 3px
+                color #fff
+                font-size 16px
+                font-weight bold
+                margin 10px 0 0 50px
+                padding 1px 6px
+                cursor pointer
+                &:hover
+                  background-color #ff2c2c
+</style>
