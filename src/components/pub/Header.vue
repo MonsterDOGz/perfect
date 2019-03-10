@@ -16,15 +16,15 @@
                     <li class="first_li"><a href="javascript:;">我的订单</a></li>
                     <li><a href="javascript:;">我的关注</a></li>
                 </ul>
-                <ul class="user_info">
-                    <li class="first_li"><a href="javascript:;">登录</a></li>
+                <ul class="user_info" v-show="!isLogin">
+                    <li class="first_li" @click="phoneLogin"><a href="javascript:;">登录</a></li>
                     <li><a href="javascript:;">注册</a></li>
                 </ul>
-                <ul class="user_info" style="display:none;">
+                <ul class="user_info" v-show="isLogin">
                     <li class="first_li">
                         <span>
                             <a href="javascript:;">15256943949，</a>
-                            <a href="javascript:;">退出</a>
+                            <a href="javascript:;" @click="outLogin">退出</a>
                         </span>
                     </li>
                 </ul>
@@ -105,10 +105,23 @@
 </template>
 
 <script>
+// import { mapMutations } from 'vuex'
 export default {
+  inject: ['reload'],
   data () {
     return {
       activeIndex: '1'
+    }
+  },
+  computed: {
+    isLogin () {
+      let bool
+      if (!localStorage.uid) {
+        bool = false
+      } else {
+        bool = true
+      }
+      return bool
     }
   },
   methods: {
@@ -120,6 +133,17 @@ export default {
     },
     handleSelect (key, keyPath) {
       console.log(key, keyPath)
+    },
+    phoneLogin () {
+      this.$store.state.loginBox.style.cssText = 'display:block;'
+    },
+    outLogin () {
+      localStorage.clear()
+      if (this.$route.name !== 'IndexHome') {
+        this.$router.push({path: '/'})
+      } else {
+        this.reload()
+      }
     }
   }
 }

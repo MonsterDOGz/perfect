@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-if="isRouterAlive">
     <index-header></index-header>
     <router-view/>
     <index-footer></index-footer>
@@ -14,10 +14,28 @@ import IndexFixedbar from './components/pub/FixedBar'
 
 export default {
   name: 'App',
+  provide () {
+    return {
+      reload: this.reload
+    }
+  },
+  data () {
+    return {
+      isRouterAlive: true
+    }
+  },
   components: {
     IndexHeader,
     IndexFooter,
     IndexFixedbar
+  },
+  methods: {
+    reload () {
+      this.isRouterAlive = false
+      this.$nextTick(function () {
+        this.isRouterAlive = true
+      })
+    }
   }
 }
 </script>

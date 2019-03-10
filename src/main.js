@@ -6,7 +6,7 @@ import router from './router'
 import 'element-ui/lib/theme-chalk/index.css'
 import ElementUI from 'element-ui'
 import axios from 'axios'
-// import store from './store'
+import store from './store'
 import './assets/font_1078987_3bgv3vwmkzj/iconfont.css'
 
 Vue.config.productionTip = false
@@ -20,7 +20,7 @@ router.afterEach((to, from, next) => {
 new Vue({
   el: '#app',
   router,
-  // store,
+  store,
   components: { App },
   template: '<App/>'
 })

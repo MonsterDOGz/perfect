@@ -37,7 +37,7 @@ export default {
   .banner
     position relative
     height 439px
-    background-color #565656
+    background-color #f5f5f5
     .wrap
       position relative
       width 100%

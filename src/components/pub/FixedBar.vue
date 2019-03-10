@@ -2,7 +2,7 @@
     <div class="fixedBar">
         <ul>
             <li class="center">
-                <a href="javascript:;" class="needLogin">
+                <a href="javascript:;" class="needLogin" @click="phoneLogin">
                     <span></span>
                 </a>
                 <p class="tip">
@@ -45,7 +45,13 @@
 
 <script>
 export default {
-
+  methods: {
+    phoneLogin () {
+      if (!localStorage.uid) {
+        this.$store.state.loginBox.style.cssText = 'display:block;'
+      }
+    }
+  }
 }
 </script>
 
