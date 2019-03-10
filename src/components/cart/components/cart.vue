@@ -36,7 +36,7 @@
                 <td class="state">
                   <span class="checkbox">
                     <input type="checkbox">
-                    <label></label>
+                    <span></span>
                   </span>
                 </td>
                 <td>
@@ -104,6 +104,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '~styles/index.styl'
   .cart
     .wrap
       width 1190px
@@ -137,6 +138,7 @@ export default {
         margin-bottom 43px
         table
           width 100%
+          border-spacing 0px
           thead
             td
               height 54px
@@ -176,29 +178,34 @@ export default {
             .operation
               width 150px
           tbody
-            td
-              background-color #fff
-              border-bottom 1px solid #ededed
-              text-align center
-              .checkbox
-                position relative
-                display inline-block
-                width 18px
-                height 18px
-                vertical-align middle
-                label
-                  background url(/staticimg/base.png) no-repeat -78px -100px
-                  border-color #e32332
-                  position absolute
-                  top 0
-                  left 0
-                  width 16px
-                  height 16px
-                  border 1px solid #d4d4d4
-                  cursor pointer
+            tr
+              height 136px
+              td
+                background-color #fff
+                border-bottom 1px solid #ededed
+                text-align center
+              .state
+                .checkbox
+                  position relative
+                  display inline-block
+                  width 18px
+                  height 18px
                   vertical-align middle
+                  span
+                    background #e32332 url(/staticimg/base.png) no-repeat -78px -100px
+                    border-color #e32332
+                    position absolute
+                    top 0
+                    left 0
+                    width 16px
+                    height 16px
+                    border 1px solid #d4d4d4
+                    cursor pointer
+                    vertical-align middle
               .cf
                 margin 29px 0
+                &:after
+                  clear()
                 .cf_img
                   float left
                   a
@@ -215,12 +222,14 @@ export default {
                     display block
                     font-size 14px
                     color #424242
+                    font-weight normal
+                    height 20px
                     a
                       max-width 400px
                       height 20px
                       overflow hidden
                       float left
-                      margin-left 5px
+                      margin-right 5px
                       color #424242
                       display inline-block
                   p
