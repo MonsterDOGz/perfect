@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import IndexHome from '@/components/index/Home'
 import ProductsHome from '@/components/products/Home'
 import userRegister from '@/components/user/register'
+import CartHome from '@/components/cart/Home'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/reg',
       name: 'userRegister',
       component: userRegister
+    },
+    {
+      path: '/cart',
+      name: 'CartHome',
+      component: CartHome
     }
   ]
 })
