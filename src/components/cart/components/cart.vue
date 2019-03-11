@@ -35,8 +35,8 @@
               <tr>
                 <td class="state">
                   <span class="checkbox">
-                    <input type="checkbox">
-                    <span></span>
+                    <input type="checkbox" name="pids" :value="1" v-model="checkedNames">
+                    <!-- <label :for="index" ref="label1" @click="show"></label> -->
                   </span>
                 </td>
                 <td>
@@ -54,9 +54,71 @@
                     </div>
                   </div>
                 </td>
-                <td></td>
-                <td class="price"></td>
-                <td></td>
+                <td>
+                  <span class="number_input">
+                    <span class="reduce"></span>
+                    <input type="text" value="1" min="1" maxlength="3">
+                    <span class="plus"></span>
+                  </span>
+                  <p class="stock">
+                    库存
+                    <font>14</font>
+                    件
+                  </p>
+                </td>
+                <td class="price">
+                  ￥
+                  <font>12.00</font>
+                </td>
+                <td>
+                  <a href="javascript:;" class="del">
+                    <span></span>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="state">
+                  <span class="checkbox">
+                    <input type="checkbox" name="pids" :value="2" v-model="checkedNames">
+                    <!-- <label :for="index" ref="label1" @click="show"></label> -->
+                  </span>
+                </td>
+                <td>
+                  <div class="cf">
+                    <div class="cf_img">
+                      <a href="javascript:;">
+                        <img src="/staticimg/dota1.jpg" title="姜小虎-表情口罩">
+                      </a>
+                    </div>
+                    <div class="cf_name">
+                      <h1 class="title">
+                        <a href="javascript:;" title="姜小虎-表情口罩">姜小虎-表情口罩</a>
+                      </h1>
+                      <p>款式：口罩：发呆</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="number_input">
+                    <span class="reduce"></span>
+                    <input type="text" value="1" min="1" maxlength="3">
+                    <span class="plus"></span>
+                  </span>
+                  <p class="stock">
+                    库存
+                    <font>14</font>
+                    件
+                  </p>
+                </td>
+                <td class="price">
+                  ￥
+                  <font>12.00</font>
+                </td>
+                <td>
+                  <a href="javascript:;" class="del">
+                    <span></span>
+                  </a>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -99,7 +161,23 @@
 
 <script>
 export default {
-
+  data () {
+    return {
+      checkedNames: ''
+    }
+  }
+  // methods: {
+// show () {
+//   for (let i = 0; i < 2; i++) {
+//     console.log(this.$refs.input1)
+//     if (this.$refs.input1[i].checked !== true) {
+//       this.$refs.label1[i].classList.add('label_red')
+//     } else {
+//       this.$refs.label1[i].classList.remove('label_red')
+//     }
+//   }
+// }
+// }
 }
 </script>
 
@@ -191,53 +269,125 @@ export default {
                   width 18px
                   height 18px
                   vertical-align middle
-                  span
+                  // input
+                    // display none
+                  // label
+                    // background #e32332 url(/staticimg/base.png) no-repeat -78px -100px
+                    // border-color #e32332
+                    // background-color #fff
+                    // position absolute
+                    // top 0
+                    // left 0
+                    // width 16px
+                    // height 16px
+                    // border 1px solid #d4d4d4
+                    // cursor pointer
+                    // vertical-align middle
+                  .label_red
                     background #e32332 url(/staticimg/base.png) no-repeat -78px -100px
                     border-color #e32332
-                    position absolute
-                    top 0
-                    left 0
-                    width 16px
-                    height 16px
-                    border 1px solid #d4d4d4
-                    cursor pointer
-                    vertical-align middle
-              .cf
-                margin 29px 0
-                &:after
-                  clear()
-                .cf_img
-                  float left
-                  a
-                    img
-                      width 72px
-                      height 72px
-                      border 1px solid #ddd
-                .cf_name
-                  float left
-                  margin-left 18px
-                  text-align left
-                  .title
-                    width 486px
-                    display block
-                    font-size 14px
-                    color #424242
-                    font-weight normal
-                    height 20px
+              td
+                .cf
+                  margin 29px 0
+                  &:after
+                    clear()
+                  .cf_img
+                    float left
                     a
-                      max-width 400px
-                      height 20px
-                      overflow hidden
-                      float left
-                      margin-right 5px
+                      img
+                        width 72px
+                        height 72px
+                        border 1px solid #ddd
+                  .cf_name
+                    float left
+                    margin-left 18px
+                    text-align left
+                    .title
+                      width 486px
+                      display block
+                      font-size 14px
                       color #424242
+                      font-weight normal
+                      height 20px
+                      a
+                        max-width 400px
+                        height 20px
+                        overflow hidden
+                        float left
+                        margin-right 5px
+                        color #424242
+                        display inline-block
+                    p
+                      color #999
+                      height 18px
                       display inline-block
-                  p
-                    color #999
-                    height 18px
+                      overflow hidden
+                      max-width 400px
+              td
+                .number_input
+                  margin-right 0
+                  display inline-block
+                  width 78px
+                  height 22px
+                  border 1px solid #e0e0e0
+                  vertical-align middle
+                  .reduce
+                    background url(/staticimg/base.png) no-repeat -234px -97px
                     display inline-block
+                    width 18px
+                    height 22px
+                    vertical-align middle
+                    cursor pointer
+                    padding-left 4px
+                    &:hover
+                      background-color #f0f0f0
+                  input
+                    width 28px
+                    height 20px
+                    line-height 20px
+                    text-align center
+                    border 0
+                    vertical-align middle
+                    font-size 12px
+                  .plus
+                    background url(/staticimg/base.png) no-repeat -233px -132px
+                    display inline-block
+                    width 20px
+                    height 22px
+                    vertical-align middle
+                    cursor pointer
+                    &:hover
+                      background-color #f0f0f0
+                .stock
+                  padding-top 8px
+                  color #999
+                  font
+                    font-style normal
+              .price
+                font-size 20px
+                color #e90404
+                background-color #fff
+                border-bottom 1px solid #ededed
+                text-align center
+                font
+                  font-style normal
+              td
+                .del
+                  display inline-block
+                  width 22px
+                  height 20px
+                  padding-top 2px
+                  border-radius 11px
+                  &:hover
+                    background-color #e32332
+                  &:hover span
+                    background-position -292px -20px
+                  span
+                    display inline-block
+                    width 8px
+                    height 8px
                     overflow hidden
-                    max-width 400px
+                    background url(/staticimg/base.png) no-repeat -292px 0
         .total_bar
           margin-top 5px
           height 90px
