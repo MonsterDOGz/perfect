@@ -18,12 +18,12 @@
             <thead>
               <tr>
                 <td class="state">
-                  <span class="all_checkbox">
+                  <!-- <span class="all_checkbox">
                     <span class="checkbox">
                       <label></label>
                     </span>
                     <span>全选</span>
-                  </span>
+                  </span> -->
                 </td>
                 <td class="name">商品名称</td>
                 <td class="num">数量</td>
@@ -32,12 +32,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr v-for="item in 2" :key="item">
                 <td class="state">
-                  <span class="checkbox">
-                    <input type="checkbox" name="pids" :value="1" v-model="checkedNames">
-                    <!-- <label :for="index" ref="label1" @click="show"></label> -->
-                  </span>
+                  <!-- <span class="checkbox">
+                    <input type="checkbox" id="index" name="pids" value="1" v-model="checkedNames">
+                    <label for="index">123</label>
+                  </span> -->
                 </td>
                 <td>
                   <div class="cf">
@@ -56,9 +56,9 @@
                 </td>
                 <td>
                   <span class="number_input">
-                    <span class="reduce"></span>
-                    <input type="text" value="1" min="1" maxlength="3">
-                    <span class="plus"></span>
+                    <span class="reduce" @click="reduce"></span>
+                    <input type="text" ref="num" value="1" min="1" maxlength="3">
+                    <span class="plus" @click="plus"></span>
                   </span>
                   <p class="stock">
                     库存
@@ -68,51 +68,7 @@
                 </td>
                 <td class="price">
                   ￥
-                  <font>12.00</font>
-                </td>
-                <td>
-                  <a href="javascript:;" class="del">
-                    <span></span>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td class="state">
-                  <span class="checkbox">
-                    <input type="checkbox" name="pids" :value="2" v-model="checkedNames">
-                    <!-- <label :for="index" ref="label1" @click="show"></label> -->
-                  </span>
-                </td>
-                <td>
-                  <div class="cf">
-                    <div class="cf_img">
-                      <a href="javascript:;">
-                        <img src="/staticimg/dota1.jpg" title="姜小虎-表情口罩">
-                      </a>
-                    </div>
-                    <div class="cf_name">
-                      <h1 class="title">
-                        <a href="javascript:;" title="姜小虎-表情口罩">姜小虎-表情口罩</a>
-                      </h1>
-                      <p>款式：口罩：发呆</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="number_input">
-                    <span class="reduce"></span>
-                    <input type="text" value="1" min="1" maxlength="3">
-                    <span class="plus"></span>
-                  </span>
-                  <p class="stock">
-                    库存
-                    <font>14</font>
-                    件
-                  </p>
-                </td>
-                <td class="price">
-                  ￥
-                  <font>12.00</font>
+                  <font>{{lprice}}</font>
                 </td>
                 <td>
                   <a href="javascript:;" class="del">
@@ -123,7 +79,7 @@
             </tbody>
           </table>
           <div class="total_bar">
-            <div class="f_left">
+            <!-- <div class="f_left">
               <span class="all_checkbox">
                 <span class="checkbox">
                   <label></label>
@@ -132,7 +88,7 @@
               </span>
               <a href="javascript:;" class="batch_delete">删除选中的商品</a>
               <a href="javascript:;">继续购物</a>
-            </div>
+            </div> -->
             <div class="f_right">
               <div class="f_right">
                 <input type="button" value="去结算" class="btn_checkout">
@@ -163,21 +119,25 @@
 export default {
   data () {
     return {
-      checkedNames: ''
+      checkedNames: '',
+      lprice: 12,
+      num: 1
+    }
+  },
+  methods: {
+    reduce () {
+      if (this.$refs.num.value > 1) {
+        this.$refs.num.value--
+        this.lprice = this.lprice * this.$refs.num.value
+        return this.lprice
+      }
+    },
+    plus () {
+      this.$refs.num.value++
+      this.lprice = 12 * this.$refs.num.value
+      return this.lprice
     }
   }
-  // methods: {
-// show () {
-//   for (let i = 0; i < 2; i++) {
-//     console.log(this.$refs.input1)
-//     if (this.$refs.input1[i].checked !== true) {
-//       this.$refs.label1[i].classList.add('label_red')
-//     } else {
-//       this.$refs.label1[i].classList.remove('label_red')
-//     }
-//   }
-// }
-// }
 }
 </script>
 
@@ -369,6 +329,7 @@ export default {
                 background-color #fff
                 border-bottom 1px solid #ededed
                 text-align center
+                width 150px
                 font
                   font-style normal
               td

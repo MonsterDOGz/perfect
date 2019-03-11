@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-// const userRouter = require('./routers/user');
+const userRouter = require('./routers/user');
 const productRouter = require('./routers/product');
 
 // 监听5656窗口
@@ -21,5 +21,5 @@ app.use(bodyParser.urlencoded({
 app.use(express.static('public'));
 
 // 挂载路由
-// app.use('/user',userRouter);
+app.use('/user',userRouter);
 app.use('/product',productRouter);
