@@ -18,13 +18,13 @@
                 </p>
             </li>
             <li class="fixed_cart">
-                <a href="javascript:;">
+                <router-link :to="'/cart'">
                     <span>
                         <i></i>
                         购物车
                         <span class="cartNum">0</span>
                     </span>
-                </a>
+                </router-link>
             </li>
             <li class="online">
                 <a href="javascript:;" class="needLogin">

@@ -32,7 +32,7 @@ export default {
         this.axios.get(url).then(result => {
           this.info.cid = result.data.data[0].class
         })
-        // console.log(this.info)
+        console.log(this.info)
       })
     }
   },

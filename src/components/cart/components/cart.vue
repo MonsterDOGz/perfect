@@ -6,13 +6,13 @@
         >
         <a href="javascript:;">我的购物车</a>
       </div>
-      <div class="cart_null" style="display:none;">
+      <div class="cart_null" v-show="!bool">
         <span></span>
         购物车空空的哦~，赶紧
         <a href="javascript:;">去选购</a>
         吧！
       </div>
-      <div class="cart_list">
+      <div class="cart_list" v-show="bool">
         <form>
           <table>
             <thead>
@@ -43,7 +43,7 @@
                   <div class="cf">
                     <div class="cf_img">
                       <a href="javascript:;">
-                        <img :src="'/api/'+item.pic" :title="item.pname">
+                        <img :src="'/api/'+item.pic[0]" :title="item.pname">
                       </a>
                     </div>
                     <div class="cf_name">
@@ -57,21 +57,21 @@
                 <td>
                   <span class="number_input">
                     <span class="reduce" @click="reduce"></span>
-                    <input type="text" ref="num" :value="item.stock" min="1" maxlength="3">
+                    <input type="text" ref="num" :value="item.num" min="1" maxlength="5">
                     <span class="plus" @click="plus"></span>
                   </span>
                   <p class="stock">
                     库存
-                    <font>14</font>
+                    <font>{{item.stock}}</font>
                     件
                   </p>
                 </td>
                 <td class="price">
                   ￥
-                  <font>{{lprice}}</font>
+                  <font>{{item.price*item.num}}</font>
                 </td>
                 <td>
-                  <a href="javascript:;" class="del">
+                  <a href="javascript:;" class="del" @click="delList">
                     <span></span>
                   </a>
                 </td>
@@ -100,11 +100,11 @@
               <p class="f_right">
                 共
                 <span class="num">
-                  <font>1</font>
+                  <font>0</font>
                 </span>
                 件商品，合计：
                 <span>￥
-                  <font class="checkoutPrice">12.00</font>
+                  <font class="checkoutPrice">0.00</font>
                 </span>
               </p>
             </div>
@@ -117,38 +117,53 @@
 
 <script>
 export default {
+  inject: ['reload'],
   data () {
     return {
       checkedNames: '',
-      lprice: 12,
-      num: 1,
-      cartList: []
+      cartList: [],
+      bool: ''
     }
   },
   methods: {
     reduce () {
       if (this.$refs.num.value > 1) {
         this.$refs.num.value--
-        this.lprice = this.lprice * this.$refs.num.value
-        return this.lprice
       }
     },
     plus () {
-      this.$refs.num.value++
-      this.lprice = 12 * this.$refs.num.value
-      return this.lprice
+      this.$refs.num.item.num++
     },
     inquire () {
       var url = `/api/cart/inquireCart?uid=${localStorage.uid}`
       this.axios.get(url).then(result => {
-        console.log(result.data.data)
-        this.cartList = result.data.data
-        this.cartList.pic = this.cartList.pic.split(',')
+        if (result.data.data) {
+          this.cartList = result.data.data
+          for (let i = 0; i < this.cartList.length; i++) {
+            this.cartList[i].pic = this.cartList[i].pic.split(',')
+          }
+        }
       })
+    },
+    delList (e) {
+      var url = `/api/cart/delProduct?uid=${localStorage.uid}&pid=${this.cartList[0].pid}`
+      this.axios.get(url).then(result => {
+        // console.log(result)
+      })
+    },
+    list_null () {
+      if (this.cartList !== null) {
+        this.bool = true
+        this.reload()
+      } else {
+        this.bool = false
+        this.reload()
+      }
     }
   },
   mounted () {
     this.inquire()
+    this.list_null()
   }
 }
 </script>

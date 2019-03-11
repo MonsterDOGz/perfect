@@ -33,7 +33,7 @@
             <h1>{{getInfo.pname}}</h1>
             <p>{{getInfo.label}}</p>
           </div>
-          <p class="price">{{getInfo.price}}</p>
+          <p class="price">￥ {{getInfo.price}}</p>
           <table>
             <tbody>
               <tr>
@@ -119,7 +119,7 @@ export default {
       if (!localStorage.uid) {
         alert('请先登录')
       } else {
-        var url = `/api/cart/addProduct?uid=${localStorage.uid}&pid=${this.getInfo.pid}&pname=${this.getInfo.pname}&style=${this.styl}&price=${this.getInfo.price}&pic=${this.getInfo.pic}&stock=${this.num}`
+        var url = `/api/cart/addProduct?uid=${localStorage.uid}&pid=${this.getInfo.pid}&pname=${this.getInfo.pname}&style=${this.styl}&price=${this.getInfo.price}&pic=${this.getInfo.pic}&num=${this.num}&stock=${this.getInfo.stock}`
         this.axios.get(url).then(result => {
           if (result.data.code === 1) {
             alert('添加购物车成功')

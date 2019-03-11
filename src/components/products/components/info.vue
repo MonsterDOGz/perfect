@@ -9,7 +9,7 @@
               <img :src="'/api/'+item.pic[0]">
             </a>
             <p class="name" title="梦间集-角色文件夹">{{item.pname}}</p>
-            <p class="price">{{item.price}}</p>
+            <p class="price">￥ {{item.price}}</p>
           </li>
         </ul>
       </div>

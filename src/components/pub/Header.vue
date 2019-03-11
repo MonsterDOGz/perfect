@@ -4,10 +4,10 @@
             <div class="wrap">
                 <span class="welcome">欢迎来到完美世界周边商城！</span>
                 <div class="header_cart" v-on:mouseover="cartShow()" v-on:mouseout="cartHide()">
-                    <a href="javascript:;" ref="cartTitle" class="text">
+                    <router-link :to="'/cart'" ref="cartTitle" class="text">
                         <span class="icon"></span>
                         购物车（<span class="cartNum">0</span>）
-                    </a>
+                    </router-link>
                     <div class="cart_list" ref="cartHidden" style="height:0px;transition:0.4s;">
                         <p class="list_null">购物车还没有商品，快去挑选商品吧！</p>
                     </div>
