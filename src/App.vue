@@ -4,6 +4,7 @@
     <router-view/>
     <index-footer></index-footer>
     <index-fixedbar></index-fixedbar>
+    <login-box></login-box>
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 import IndexHeader from './components/pub/Header'
 import IndexFooter from './components/pub/Footer'
 import IndexFixedbar from './components/pub/FixedBar'
+import LoginBox from './components/user/loginBox'
 
 export default {
   name: 'App',
@@ -27,7 +29,8 @@ export default {
   components: {
     IndexHeader,
     IndexFooter,
-    IndexFixedbar
+    IndexFixedbar,
+    LoginBox
   },
   methods: {
     reload () {

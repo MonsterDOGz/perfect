@@ -141,6 +141,7 @@ export default {
       localStorage.clear()
       if (this.$route.name !== 'IndexHome') {
         this.$router.push({path: '/'})
+        this.reload()
       } else {
         this.reload()
       }

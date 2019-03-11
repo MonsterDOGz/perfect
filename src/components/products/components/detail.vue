@@ -53,10 +53,8 @@
                       <tr>
                         <th>颜色：</th>
                         <td>
-                          <a href="javascript:;" class="option" v-for="item in getInfo.style" :key="item">
-                            {{item}}
-                            <em></em>
-                          </a>
+                          <a href="javascript:;" class="option" v-for="(item,index) in getInfo.style" :key="index" @click="pick">{{item}}</a>
+                          <em></em>
                         </td>
                       </tr>
                     </tbody>
@@ -67,9 +65,9 @@
                 <th>数量：</th>
                 <td>
                   <span class="number">
-                    <span class="reduce"></span>
-                    <input type="text" value="1" min="1" stock="498" maxlength="3">
-                    <span class="add"></span>
+                    <span class="reduce" @click="reduce"></span>
+                    <input type="text" v-model="num" min="1" stock="498" maxlength="3">
+                    <span class="add" @click="plus"></span>
                   </span>
                   <span class="stock">
                     （库存<font>{{getInfo.stock}}</font>件）
@@ -83,7 +81,7 @@
           </table>
           <div class="btns">
             <a href="javascript:;" class="btn_buy">立即购买</a>
-            <a href="javascript:;" class="btn_addCart">
+            <a href="javascript:;" class="btn_addCart" @click="addCart">
               <span></span>
               加入购物车
             </a>
@@ -97,9 +95,38 @@
 <script>
 export default {
   props: ['getInfo'],
-  methods: {
+  data () {
+    return {
+      styl: '',
+      num: 1,
+      picked: ''
+    }
   },
-  mounted () {
+  methods: {
+    pick (e) {
+      this.styl = e.target.innerHTML
+    },
+    reduce () {
+      if (this.num > 1) {
+        this.num--
+      }
+    },
+    plus () {
+      this.num++
+      // console.log(this.picked)
+    },
+    addCart () {
+      if (!localStorage.uid) {
+        alert('请先登录')
+      } else {
+        var url = `/api/cart/addProduct?uid=${localStorage.uid}&pid=${this.getInfo.pid}&pname=${this.getInfo.pname}&style=${this.styl}&price=${this.getInfo.price}&pic=${this.getInfo.pic}&stock=${this.num}`
+        this.axios.get(url).then(result => {
+          if (result.data.code === 1) {
+            alert('添加购物车成功')
+          }
+        })
+      }
+    }
   }
 }
 </script>
@@ -233,15 +260,15 @@ export default {
                 margin-right 4px
                 color #333
                 display inline-block
-                em
-                  display none
-                  position absolute
-                  bottom 0
-                  right 0
-                  width 13px
-                  height 13px
-                  background url(/staticimg/base.png) no-repeat -125px -204px
-                  font-style normal
+              em
+                display none
+                position absolute
+                bottom 0
+                right 0
+                width 13px
+                height 13px
+                background url(/staticimg/base.png) no-repeat -125px -204px
+                font-style normal
           td
             .number
               display inline-block

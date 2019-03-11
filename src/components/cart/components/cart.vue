@@ -32,7 +32,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in 2" :key="item">
+              <tr v-for="(item,index) in cartList" :key="index">
                 <td class="state">
                   <!-- <span class="checkbox">
                     <input type="checkbox" id="index" name="pids" value="1" v-model="checkedNames">
@@ -43,21 +43,21 @@
                   <div class="cf">
                     <div class="cf_img">
                       <a href="javascript:;">
-                        <img src="/staticimg/dota1.jpg" title="姜小虎-表情口罩">
+                        <img :src="'/api/'+item.pic" :title="item.pname">
                       </a>
                     </div>
                     <div class="cf_name">
                       <h1 class="title">
-                        <a href="javascript:;" title="姜小虎-表情口罩">姜小虎-表情口罩</a>
+                        <a href="javascript:;" :title="item.pname">{{item.pname}}</a>
                       </h1>
-                      <p>款式：口罩：发呆</p>
+                      <p>款式：{{item.style}}</p>
                     </div>
                   </div>
                 </td>
                 <td>
                   <span class="number_input">
                     <span class="reduce" @click="reduce"></span>
-                    <input type="text" ref="num" value="1" min="1" maxlength="3">
+                    <input type="text" ref="num" :value="item.stock" min="1" maxlength="3">
                     <span class="plus" @click="plus"></span>
                   </span>
                   <p class="stock">
@@ -121,7 +121,8 @@ export default {
     return {
       checkedNames: '',
       lprice: 12,
-      num: 1
+      num: 1,
+      cartList: []
     }
   },
   methods: {
@@ -136,7 +137,18 @@ export default {
       this.$refs.num.value++
       this.lprice = 12 * this.$refs.num.value
       return this.lprice
+    },
+    inquire () {
+      var url = `/api/cart/inquireCart?uid=${localStorage.uid}`
+      this.axios.get(url).then(result => {
+        console.log(result.data.data)
+        this.cartList = result.data.data
+        this.cartList.pic = this.cartList.pic.split(',')
+      })
     }
+  },
+  mounted () {
+    this.inquire()
   }
 }
 </script>
