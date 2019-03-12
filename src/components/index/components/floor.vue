@@ -75,6 +75,7 @@ export default {
             this.floor[i].fProduct[n].pic = this.floor[i].fProduct[n].pic.split(',')
           }
         }
+        console.log(this.floor)
       })
     }
   },

@@ -107,15 +107,15 @@ router.get('/indexFloor', (req, res) => {
           if (err) throw err
           if (result.length > 0) {
             for (let i = 0; i < result.length; i++) {
-              if (result[i].cid === 1 && floorProduct.f1Product.length < 6) {
+              if (result[i].cid === '1' && floorProduct.f1Product.length < 6) {
                 floorProduct.f1Product.push(result[i])
-              } else if (result[i].cid === 2 && floorProduct.f2Product.length < 6) {
+              } else if (result[i].cid === '2' && floorProduct.f2Product.length < 6) {
                 floorProduct.f2Product.push(result[i])
-              } else if (result[i].cid === 3 && floorProduct.f3Product.length < 6) {
+              } else if (result[i].cid === '3' && floorProduct.f3Product.length < 6) {
                 floorProduct.f3Product.push(result[i])
-              } else if (result[i].cid === 4 && floorProduct.f4Product.length < 6) {
+              } else if (result[i].cid === '4' && floorProduct.f4Product.length < 6) {
                 floorProduct.f4Product.push(result[i])
-              } else if (result[i].cid === 5 && floorProduct.f5Product.length < 6) {
+              } else if (result[i].cid === '5' && floorProduct.f5Product.length < 6) {
                 floorProduct.f5Product.push(result[i])
               }
             }
