@@ -140,11 +140,13 @@ export default {
       }
     },
     plus (pid, index) {
-      let num = ++this.$refs.num[index].value
-      var url = `/api/cart/updateCart?uid=${localStorage.uid}&pid=${pid}&num=${num}`
-      this.axios.get(url).then(result => {
-        this.inquire()
-      })
+      if (this.$refs.num[index].value < 100) {
+        let num = ++this.$refs.num[index].value
+        var url = `/api/cart/updateCart?uid=${localStorage.uid}&pid=${pid}&num=${num}`
+        this.axios.get(url).then(result => {
+          this.inquire()
+        })
+      }
     },
     inquire () {
       var url = `/api/cart/inquireCart?uid=${localStorage.uid}`
@@ -477,4 +479,6 @@ export default {
               span
                 margin 0 7px
                 color #e90404
+                .checkoutPrice
+                  font-size 20px
 </style>
