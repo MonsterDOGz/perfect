@@ -32,12 +32,12 @@
         </div>
         <div class="header_nav">
             <div class="wrap">
-                <a href="javascript:;" class="logo_wm">
+                <router-link :to="'/'" class="logo_wm">
                     <img src="/staticimg/logo_wm.png" title="完美商城">
-                </a>
-                <a href="javascript:;" class="logo_shop">
+                </router-link>
+                <router-link :to="'/'" class="logo_shop">
                     <img src="/staticimg/logo_shop.png" alt="完美商城">
-                </a>
+                </router-link>
                 <!-- 导航菜单 -->
                 <div class="all_wares">
                     <p class="text">
@@ -88,7 +88,7 @@
                     </ul>
                 </div>
                 <ul class="nav">
-                    <li><a href="javascript:;">首页</a></li>
+                    <li><router-link :to="'/'">首页</router-link></li>
                     <li><a href="javascript:;">完美世界周边</a></li>
                     <li><a href="javascript:;">DOTA2专区</a></li>
                     <li><a href="javascript:;">FAQ</a></li>

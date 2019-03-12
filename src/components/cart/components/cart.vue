@@ -2,14 +2,14 @@
   <div class="cart">
     <div class="wrap">
       <div class="nav_bar">
-        <a href="javascript:;">首页</a>
+        <router-link :to="'/'">首页</router-link>
         >
         <a href="javascript:;">我的购物车</a>
       </div>
       <div class="cart_null" v-show="!bool">
         <span></span>
         购物车空空的哦~，赶紧
-        <a href="javascript:;">去选购</a>
+        <router-link :to="'/'">去选购</router-link>
         吧！
       </div>
       <div class="cart_list" v-show="bool">
@@ -42,13 +42,13 @@
                 <td>
                   <div class="cf">
                     <div class="cf_img">
-                      <a href="javascript:;">
+                      <router-link :to="'/products/'+item.pid">
                         <img :src="'/api/'+item.pic[0]" :title="item.pname">
-                      </a>
+                      </router-link>
                     </div>
                     <div class="cf_name">
                       <h1 class="title">
-                        <a href="javascript:;" :title="item.pname">{{item.pname}}</a>
+                        <router-link :to="'/products/'+item.pid" :title="item.pname">{{item.pname}}</router-link>
                       </h1>
                       <p>款式：{{item.style}}</p>
                     </div>
@@ -71,7 +71,7 @@
                   <font>{{item.price*item.num}}</font>
                 </td>
                 <td>
-                  <a href="javascript:;" class="del" @click="delList">
+                  <a href="javascript:;" class="del" @click="delList(item.pid)">
                     <span></span>
                   </a>
                 </td>
@@ -145,24 +145,24 @@ export default {
         }
       })
     },
-    delList (e) {
-      var url = `/api/cart/delProduct?uid=${localStorage.uid}&pid=${this.cartList[0].pid}`
+    delList (pid) {
+      var url = `/api/cart/delProduct?uid=${localStorage.uid}&pid=${pid}`
       this.axios.get(url).then(result => {
-        // console.log(result)
+        this.reload()
       })
     },
     list_null () {
-      if (this.cartList !== null) {
+      if (this.cartList.length !== 0) {
         this.bool = true
-        this.reload()
       } else {
         this.bool = false
-        this.reload()
       }
     }
   },
   mounted () {
     this.inquire()
+  },
+  updated () {
     this.list_null()
   }
 }
