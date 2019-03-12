@@ -4,7 +4,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     // 用户登录盒子
-    loginBox: ''
+    loginBox: '',
+    cartInfo: ''
   },
   mutations: {
     // 当前用户退出后删除信息
@@ -14,6 +15,10 @@ export default new Vuex.Store({
     // 登录盒子
     changeLogin (state, data) {
       state.loginBox = data
+    },
+    // 购物车信息
+    cart (state, data) {
+      state.cartInfo = data
     }
   }
 })

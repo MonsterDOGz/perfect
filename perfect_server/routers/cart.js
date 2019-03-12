@@ -28,11 +28,21 @@ router.get('/addProduct', (req, res) => {
 // 查询对应用户的购物车商品
 router.get('/inquireCart', (req, res) => {
   var uid = req.query.uid
+  var number = 0
+  var price = 0
+  var cartInfo = []
   var sql = `SELECT * FROM shopping_cart WHERE uid=?`
   pool.query(sql, [uid], (err, result) => {
     if (err) throw err
+    for (var i = 0; i < result.length; i++) {
+      number += result[i].num
+      price += result[i].num * result[i].price
+    }
+    cartInfo[0] = result
+    cartInfo[1] = number
+    cartInfo[2] = price
     if (result.length > 0) {
-      res.send({code: 1, data: result})
+      res.send({code: 1, data: cartInfo})
     } else {
       res.send({code: -1})
     }

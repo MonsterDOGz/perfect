@@ -68,7 +68,7 @@
                 </td>
                 <td class="price">
                   ￥
-                  <font>{{item.price*item.num}}</font>
+                  <font>{{item.price*item.num}}.00</font>
                 </td>
                 <td>
                   <a href="javascript:;" class="del" @click="delList(item.pid)">
@@ -100,11 +100,11 @@
               <p class="f_right">
                 共
                 <span class="num">
-                  <font>0</font>
+                  <font>{{number}}</font>
                 </span>
                 件商品，合计：
                 <span>￥
-                  <font class="checkoutPrice">0.00</font>
+                  <font class="checkoutPrice">{{allPrice}}.00</font>
                 </span>
               </p>
             </div>
@@ -121,7 +121,10 @@ export default {
   data () {
     return {
       checkedNames: '',
+      cartInfo: '',
       cartList: [],
+      number: 0,
+      allPrice: 0,
       bool: ''
     }
   },
@@ -132,17 +135,21 @@ export default {
       }
     },
     plus () {
-      this.$refs.num.item.num++
+      this.$refs.num.value++
     },
     inquire () {
       var url = `/api/cart/inquireCart?uid=${localStorage.uid}`
       this.axios.get(url).then(result => {
         if (result.data.data) {
-          this.cartList = result.data.data
-          for (let i = 0; i < this.cartList.length; i++) {
-            this.cartList[i].pic = this.cartList[i].pic.split(',')
+          this.cartInfo = result.data.data
+          for (let i = 0; i < this.cartInfo[0].length; i++) {
+            this.cartInfo[0][i].pic = this.cartInfo[0][i].pic.split(',')
           }
         }
+        console.log(this.cartInfo)
+        this.cartList = this.cartInfo[0]
+        this.number = this.cartInfo[1]
+        this.allPrice = this.cartInfo[2]
       })
     },
     delList (pid) {

@@ -34,7 +34,8 @@ export default {
     return {
       uphone: '',
       upwd: '',
-      tip: ''
+      tip: '',
+      cartInfo: ''
     }
   },
   computed: {
@@ -82,9 +83,21 @@ export default {
           this.tipBox()
         } else {
           localStorage.setItem('uid', result.data.data[0].uid)
+          this.inquire()
           // this.getUserInfo(result.data.data[0])
           this.reload()
           // this.$router.push({path: '/'})
+        }
+      })
+    },
+    inquire () {
+      var url = `/api/cart/inquireCart?uid=${localStorage.uid}`
+      this.axios.get(url).then(result => {
+        if (result.data.data) {
+          this.cartInfo = result.data.data
+          for (let i = 0; i < this.cartInfo[0].length; i++) {
+            this.cartInfo[0][i].pic = this.cartInfo[0][i].pic.split(',')
+          }
         }
       })
     },
