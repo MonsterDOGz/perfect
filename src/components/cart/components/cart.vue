@@ -56,9 +56,9 @@
                 </td>
                 <td>
                   <span class="number_input">
-                    <span class="reduce" @click="reduce"></span>
+                    <span class="reduce" @click="reduce(item.pid, index)"></span>
                     <input type="text" ref="num" :value="item.num" min="1" maxlength="5">
-                    <span class="plus" @click="plus"></span>
+                    <span class="plus" @click="plus(item.pid, index)"></span>
                   </span>
                   <p class="stock">
                     库存
@@ -116,6 +116,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   inject: ['reload'],
   data () {
@@ -129,13 +130,21 @@ export default {
     }
   },
   methods: {
-    reduce () {
-      if (this.$refs.num.value > 1) {
-        this.$refs.num.value--
+    reduce (pid, index) {
+      if (this.$refs.num[index].value > 1) {
+        let num = --this.$refs.num[index].value
+        var url = `/api/cart/updateCart?uid=${localStorage.uid}&pid=${pid}&num=${num}`
+        this.axios.get(url).then(result => {
+          this.inquire()
+        })
       }
     },
-    plus () {
-      this.$refs.num.value++
+    plus (pid, index) {
+      let num = ++this.$refs.num[index].value
+      var url = `/api/cart/updateCart?uid=${localStorage.uid}&pid=${pid}&num=${num}`
+      this.axios.get(url).then(result => {
+        this.inquire()
+      })
     },
     inquire () {
       var url = `/api/cart/inquireCart?uid=${localStorage.uid}`
@@ -146,7 +155,7 @@ export default {
             this.cartInfo[0][i].pic = this.cartInfo[0][i].pic.split(',')
           }
         }
-        console.log(this.cartInfo)
+        this.cart(this.cartInfo)
         this.cartList = this.cartInfo[0]
         this.number = this.cartInfo[1]
         this.allPrice = this.cartInfo[2]
@@ -164,7 +173,8 @@ export default {
       } else {
         this.bool = false
       }
-    }
+    },
+    ...mapMutations(['cart'])
   },
   mounted () {
     this.inquire()

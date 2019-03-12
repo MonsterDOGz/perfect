@@ -49,6 +49,23 @@ router.get('/inquireCart', (req, res) => {
   })
 })
 
+// 修改购物车信息
+router.get('/updateCart', (req, res) => {
+  var uid = req.query.uid
+  var pid = req.query.pid
+  var num = req.query.num
+  console.log(num)
+  var sql = `UPDATE shopping_cart SET num=? WHERE uid=? AND pid=?`
+  pool.query(sql, [num, uid, pid], (err, result) => {
+    if (err) throw err
+    if (result.affectedRows > 0) {
+      res.send({code: 1, data: result})
+    } else {
+      res.send({code: -1})
+    }
+  })
+})
+
 // 删除购物车商品
 router.get('/delProduct', (req, res) => {
   var uid = req.query.uid
