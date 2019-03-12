@@ -18,6 +18,7 @@ export default new Vuex.Store({
     },
     // 购物车信息
     cart (state, data) {
+      console.log(data)
       state.cartInfo = data
     }
   }

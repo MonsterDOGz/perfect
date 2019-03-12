@@ -58,7 +58,7 @@
                   <span class="number_input">
                     <span class="reduce" @click="reduce(item.pid, index)"></span>
                     <input type="text" ref="num" :value="item.num" min="1" maxlength="5">
-                    <span class="plus" @click="plus(item.pid, index)"></span>
+                    <span class="plus" @click="plus(item.pid, index, item.stock)"></span>
                   </span>
                   <p class="stock">
                     库存
@@ -139,8 +139,8 @@ export default {
         })
       }
     },
-    plus (pid, index) {
-      if (this.$refs.num[index].value < 100) {
+    plus (pid, index, stock) {
+      if (this.$refs.num[index].value < stock) {
         let num = ++this.$refs.num[index].value
         var url = `/api/cart/updateCart?uid=${localStorage.uid}&pid=${pid}&num=${num}`
         this.axios.get(url).then(result => {
@@ -167,10 +167,13 @@ export default {
       var url = `/api/cart/delProduct?uid=${localStorage.uid}&pid=${pid}`
       this.axios.get(url).then(result => {
         this.reload()
+        // if (result.data.code === 1) {
+        //   this.inquire()
+        // }
       })
     },
     list_null () {
-      if (this.cartList.length !== 0) {
+      if (this.cartList) {
         this.bool = true
       } else {
         this.bool = false

@@ -98,10 +98,12 @@ export default {
           for (let i = 0; i < this.cartInfo[0].length; i++) {
             this.cartInfo[0][i].pic = this.cartInfo[0][i].pic.split(',')
           }
+          console.log(this.cartInfo)
+          this.cart(this.cartInfo)
         }
       })
     },
-    ...mapMutations(['changeLogin'])
+    ...mapMutations(['changeLogin', 'cart'])
   }
 }
 </script>
