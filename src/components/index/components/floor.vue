@@ -36,11 +36,11 @@
                 </router-link>
                 <p class="product_name" :title="it.pname">{{it.pname}}</p>
                 <p class="price">￥ {{it.price}}</p>
-                <!-- <div class="add">
-                  <a href="javascript:;" class="btn" title="加入购物车">
+                <div class="add">
+                  <router-link :to="'/products/'+it.pid" class="btn" title="加入购物车">
                     <span></span>
-                  </a>
-                </div> -->
+                  </router-link>
+                </div>
                 <span class="comment">
                   <a href="javascript:;" class="review">
                     东西很好哦，计划买两个。
