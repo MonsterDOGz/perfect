@@ -51,6 +51,7 @@ export default {
   },
   mounted () {
     this.login()
+    this.inquire()
   },
   methods: {
     closebox () {
@@ -91,17 +92,18 @@ export default {
       })
     },
     inquire () {
-      var url = `/api/cart/inquireCart?uid=${localStorage.uid}`
-      this.axios.get(url).then(result => {
-        if (result.data.data) {
-          this.cartInfo = result.data.data
-          for (let i = 0; i < this.cartInfo[0].length; i++) {
-            this.cartInfo[0][i].pic = this.cartInfo[0][i].pic.split(',')
+      if (localStorage.uid) {
+        var url = `/api/cart/inquireCart?uid=${localStorage.uid}`
+        this.axios.get(url).then(result => {
+          if (result.data.data) {
+            this.cartInfo = result.data.data
+            for (let i = 0; i < this.cartInfo[0].length; i++) {
+              this.cartInfo[0][i].pic = this.cartInfo[0][i].pic.split(',')
+            }
+            this.cart(this.cartInfo)
           }
-          console.log(this.cartInfo)
-          this.cart(this.cartInfo)
-        }
-      })
+        })
+      }
     },
     ...mapMutations(['changeLogin', 'cart'])
   }

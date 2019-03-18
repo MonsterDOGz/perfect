@@ -9,16 +9,16 @@ export default new Vuex.Store({
   },
   mutations: {
     // 当前用户退出后删除信息
-    // outLogin (state) {
-    //   state.userInfo = ''
-    // },
+    outLog (state) {
+      state.cartInfo = []
+      state.cartInfo[1] = 0
+    },
     // 登录盒子
     changeLogin (state, data) {
       state.loginBox = data
     },
     // 购物车信息
     cart (state, data) {
-      console.log(data)
       state.cartInfo = data
     }
   }

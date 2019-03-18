@@ -6,10 +6,39 @@
                 <div class="header_cart" v-on:mouseover="cartShow()" v-on:mouseout="cartHide()">
                     <router-link :to="'/cart'" ref="cartTitle" class="text">
                         <span class="icon"></span>
-                        购物车（<span class="cartNum">0</span>）
+                        购物车（<span class="cartNum">{{number}}</span>）
                     </router-link>
                     <div class="cart_list" ref="cartHidden" style="height:0px;transition:0.4s;">
-                        <p class="list_null">购物车还没有商品，快去挑选商品吧！</p>
+                        <p class="list_null" style="display:none;">购物车还没有商品，快去挑选商品吧！</p>
+                        <div class="list">
+                            <div class="shop_list">
+                                <ul>
+                                    <li v-for="(item,index) of cart" :key="index">
+                                        <a href="javascript:;" :click='`jump(${item.pid})`'>
+                                            <img :src="'/api/'+item.pic[0]">
+                                            <p class="title">
+                                                <span class="name">{{item.pname}}</span>
+                                                <span class="size">款式：{{item.style}}</span>
+                                            </p>
+                                            <p class="num">{{item.price}} x {{item.num}}</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="shop_result">
+                                <div class="shop_left">
+                                    <div class="left">
+                                        <p calss="num">
+                                            共<span class="cartNum"> {{number}} </span>件商品
+                                        </p>
+                                        <p class="total">
+                                            ￥<span>{{allPrice}}.00</span>
+                                        </p>
+                                    </div>
+                                    <router-link :to="'/cart'" class="right">去购物车结算</router-link>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <ul class="user_info">
@@ -105,12 +134,15 @@
 </template>
 
 <script>
-// import { mapMutations } from 'vuex'
+import {mapMutations, mapState} from 'vuex'
 export default {
   inject: ['reload'],
   data () {
     return {
-      activeIndex: '1'
+      activeIndex: '1',
+      cart: '',
+      number: 0,
+      allPrice: 0
     }
   },
   computed: {
@@ -122,11 +154,24 @@ export default {
         bool = true
       }
       return bool
+    },
+    ...mapState(['cartInfo'])
+  },
+  watch: {
+    cartInfo: {
+      handler () {
+        this.cart = this.$store.state.cartInfo[0]
+        this.number = this.$store.state.cartInfo[1]
+        this.allPrice = this.$store.state.cartInfo[2]
+      },
+      immediate: true
     }
   },
   methods: {
     cartShow () {
-      this.$refs.cartHidden.style.cssText = 'height:105px;transition:0.4s;'
+      if (this.cart) {
+        this.$refs.cartHidden.style.cssText = `height:${84 + 99 * this.cart.length}px;transition:0.4s;`
+      }
     },
     cartHide () {
       this.$refs.cartHidden.style.cssText = 'height:0px;transition:0.4s;'
@@ -141,11 +186,19 @@ export default {
       localStorage.clear()
       if (this.$route.name !== 'IndexHome') {
         this.$router.push({path: '/'})
+        this.outLog()
         this.reload()
       } else {
+        this.outLog()
         this.reload()
       }
-    }
+    },
+    jump (pid) {
+      this.$router.push({
+        path: '/products/' + pid
+      })
+    },
+    ...mapMutations(['outLog'])
   }
 }
 </script>
@@ -204,11 +257,86 @@ export default {
                     z-index 1
                     box-shadow 0 2px 3px #ccc
                     overflow hidden
+                    transition 0.4s
                     .list_null
                         padding 49px 0 37px 0
                         text-align center
                         font-size 14px
                         color #666
+                    .list
+                        text-align center
+                        font-size 12px
+                        color #666
+                        .shop_list
+                            position relative
+                            top 0
+                            left 0
+                            padding 17px 17px 0 17px
+                            max-height 400px
+                            background-color #fff
+                            ul
+                                li
+                                    overflow hidden
+                                    position relative
+                                    padding 13px 5px 3px 5px
+                                    border-top 1px solid #e0e0e0
+                                    a
+                                        display inline-block
+                                        padding-bottom 10px
+                                        width 100%
+                                        &:hover .title .name
+                                            color #e90404
+                                        img
+                                            margin-right 10px
+                                            border 1px solid #ddd
+                                            width 50px
+                                            height 50px
+                                            float left
+                                        .title
+                                            width 100px
+                                            padding-right 15px
+                                            float left
+                                            text-align left
+                                            .name
+                                                color #666
+                                                display block
+                                                max-height 32px
+                                                overflow hidden
+                                            .size
+                                                color #999
+                                                display block
+                                                max-height 18px
+                                                overflow hidden
+                                        .num
+                                            color #474747
+                                            float right
+                        .shop_result
+                            padding 22px 17px 15px 17px
+                            color #666
+                            &:after
+                                clear()
+                            .shop_left
+                                .left
+                                    float left
+                                    text-align left
+                                    .num
+                                        .cartNum
+                                            padding 0 3px
+                                            color #474747
+                                    .total
+                                        font-size 24px
+                                        color #e90404
+                                .right
+                                    width 132px
+                                    height 40px
+                                    line-height 40px
+                                    text-align center
+                                    background-color #e32332
+                                    font-size 14px
+                                    color #fff
+                                    float right
+                                    &:hover
+                                        background-color #c00
             .user_info
                 margin 11px 35px 0 0
                 float right

@@ -93,6 +93,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   props: ['getInfo'],
   data () {
@@ -123,10 +124,24 @@ export default {
         this.axios.get(url).then(result => {
           if (result.data.code === 1) {
             alert('添加购物车成功')
+            this.inquire()
           }
         })
       }
-    }
+    },
+    inquire () {
+      var url = `/api/cart/inquireCart?uid=${localStorage.uid}`
+      this.axios.get(url).then(result => {
+        if (result.data.data) {
+          this.cartInfo = result.data.data
+          for (let i = 0; i < this.cartInfo[0].length; i++) {
+            this.cartInfo[0][i].pic = this.cartInfo[0][i].pic.split(',')
+          }
+          this.cart(this.cartInfo)
+        }
+      })
+    },
+    ...mapMutations(['cart'])
   }
 }
 </script>
