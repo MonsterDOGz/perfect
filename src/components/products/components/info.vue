@@ -5,9 +5,9 @@
         <span>猜你喜欢</span>
         <ul>
           <li v-for="item in productList" :key="item.pid">
-            <a href="javascript:;">
+            <router-link :to="'/products/'+item.pid">
               <img :src="'/api/'+item.pic[0]">
-            </a>
+            </router-link>
             <p class="name" title="梦间集-角色文件夹">{{item.pname}}</p>
             <p class="price">￥ {{item.price}}</p>
           </li>

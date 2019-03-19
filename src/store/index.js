@@ -11,7 +11,6 @@ export default new Vuex.Store({
     // 当前用户退出后删除信息
     outLog (state) {
       state.cartInfo = []
-      state.cartInfo[1] = 0
     },
     // 登录盒子
     changeLogin (state, data) {

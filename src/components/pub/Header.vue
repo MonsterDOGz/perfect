@@ -6,22 +6,22 @@
                 <div class="header_cart" v-on:mouseover="cartShow()" v-on:mouseout="cartHide()">
                     <router-link :to="'/cart'" ref="cartTitle" class="text">
                         <span class="icon"></span>
-                        购物车（<span class="cartNum">{{number}}</span>）
+                        购物车（<span class="cartNum">{{number === undefined ? 0 : number}}</span>）
                     </router-link>
                     <div class="cart_list" ref="cartHidden" style="height:0px;transition:0.4s;">
-                        <p class="list_null" style="display:none;">购物车还没有商品，快去挑选商品吧！</p>
-                        <div class="list">
+                        <p class="list_null" v-show="number === undefined">购物车还没有商品，快去挑选商品吧！</p>
+                        <div class="list" v-show="number !== undefined">
                             <div class="shop_list">
                                 <ul>
                                     <li v-for="(item,index) of cart" :key="index">
-                                        <a href="javascript:;" :click='`jump(${item.pid})`'>
+                                        <router-link :to="'/products/'+item.pid">
                                             <img :src="'/api/'+item.pic[0]">
                                             <p class="title">
                                                 <span class="name">{{item.pname}}</span>
                                                 <span class="size">款式：{{item.style}}</span>
                                             </p>
                                             <p class="num">{{item.price}} x {{item.num}}</p>
-                                        </a>
+                                        </router-link>
                                     </li>
                                 </ul>
                             </div>
@@ -170,7 +170,9 @@ export default {
   methods: {
     cartShow () {
       if (this.cart) {
-        this.$refs.cartHidden.style.cssText = `height:${84 + 99 * this.cart.length}px;transition:0.4s;`
+        this.$refs.cartHidden.style.cssText = `height:${99 + 82 * this.cart.length}px;transition:0.4s;`
+      } else {
+        this.$refs.cartHidden.style.cssText = 'height:105px;transition:0.4s;'
       }
     },
     cartHide () {
@@ -192,11 +194,6 @@ export default {
         this.outLog()
         this.reload()
       }
-    },
-    jump (pid) {
-      this.$router.push({
-        path: '/products/' + pid
-      })
     },
     ...mapMutations(['outLog'])
   }

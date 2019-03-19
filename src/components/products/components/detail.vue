@@ -13,16 +13,16 @@
         <div class="gallery">
           <div class="bd">
             <div class="tempWrap">
-              <ul style="width:1720px;">
-                <li v-for="item in getInfo.pic" :key="item">
+              <ul ref="bigBox">
+                <li v-for="item in getInfo.pic" :key="item" ref="bigItem">
                   <img :src="'/api/'+item">
-                  </li>
+                </li>
               </ul>
             </div>
           </div>
           <div class="hd">
             <ul>
-              <li v-for="item in getInfo.pic" :key="item">
+              <li v-for="(item, index) of getInfo.pic" :key="item" ref="smallItem" @click="toubor($event, index)">
                 <img :src="'/api/'+item">
               </li>
             </ul>
@@ -53,8 +53,10 @@
                       <tr>
                         <th>颜色：</th>
                         <td>
-                          <a href="javascript:;" class="option" v-for="(item,index) in getInfo.style" :key="index" @click="pick">{{item}}</a>
-                          <em></em>
+                          <a href="javascript:;" ref="sty" class="option" v-for="(item,index) in getInfo.style" :key="index" @click="pick($event, item, index)">
+                            {{item}}
+                            <em ref="styEm"></em>
+                          </a>
                         </td>
                       </tr>
                     </tbody>
@@ -104,8 +106,28 @@ export default {
     }
   },
   methods: {
-    pick (e) {
-      this.styl = e.target.innerHTML
+    pick (e, item, index) {
+      for (let key of this.$refs.sty) {
+        key.style.cssText = 'padding:4px 13px;border:1px solid #e0e0e0;'
+      }
+      for (let key of this.$refs.styEm) {
+        key.style.cssText = 'display:none;'
+      }
+      if (this.styl !== item) {
+        e.target.style.cssText = 'padding:3px 12px;border:2px solid #e32332;'
+        for (let i = 0; i < this.$refs.styEm.length; i++) {
+          if (i === index) {
+            this.$refs.styEm[i].style.cssText = 'display:block;'
+          }
+        }
+        this.styl = item
+      } else {
+        e.target.style.cssText = 'padding:4px 13px;border:1px solid #e0e0e0;'
+        for (let i = 0; i < this.$refs.styEm.length; i++) {
+          this.$refs.styEm[i].style.cssText = 'display:none;'
+        }
+        this.styl = ''
+      }
     },
     reduce () {
       if (this.num > 1) {
@@ -114,7 +136,6 @@ export default {
     },
     plus () {
       this.num++
-      // console.log(this.picked)
     },
     addCart () {
       if (!localStorage.uid) {
@@ -141,7 +162,23 @@ export default {
         }
       })
     },
+    pic () {
+      // let bigBox = this.$refs.bigBox
+      // let bigItem = this.$refs.bigItem
+      let smallItem = this.$refs.smallItem
+      for (let i = 0; i < smallItem.length; i++) {
+        // console.log(i)
+      }
+    },
+    toubor (e, index) {
+      let bigBox = this.$refs.bigBox
+      bigBox.style.cssText = `margin-left:-${index * 430}px`
+      e.target.style.cssText = 'opacity:1;'
+    },
     ...mapMutations(['cart'])
+  },
+  updated () {
+    this.pic()
   }
 }
 </script>
@@ -184,6 +221,7 @@ export default {
             ul
               position relative
               overflow hidden
+              width 1720px
               li
                 float left
                 width 430px
@@ -275,15 +313,15 @@ export default {
                 margin-right 4px
                 color #333
                 display inline-block
-              em
-                display none
-                position absolute
-                bottom 0
-                right 0
-                width 13px
-                height 13px
-                background url(/staticimg/base.png) no-repeat -125px -204px
-                font-style normal
+                em
+                  display none
+                  position absolute
+                  bottom 0
+                  right 0
+                  width 13px
+                  height 13px
+                  background url(/staticimg/base.png) no-repeat -125px -204px
+                  font-style normal
           td
             .number
               display inline-block

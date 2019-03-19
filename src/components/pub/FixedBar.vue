@@ -22,7 +22,7 @@
                     <span>
                         <i></i>
                         购物车
-                        <span class="cartNum">0</span>
+                        <span class="cartNum">{{number === undefined ? 0 : number}}</span>
                     </span>
                 </router-link>
             </li>
@@ -35,7 +35,7 @@
                 </p>
             </li>
         </ul>
-        <p class="go_top" title="回到顶部">
+        <p class="go_top" title="回到顶部" v-show="top == true" @click="toTop">
             <a href="javascript:;">
                 <span></span>
             </a>
@@ -44,13 +44,56 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+import { setInterval, clearInterval } from 'timers'
 export default {
+  data () {
+    return {
+      number: 0,
+      top: false,
+      scrollTop: 0
+    }
+  },
+  computed: {
+    ...mapState(['cartInfo'])
+  },
+  watch: {
+    cartInfo: {
+      handler () {
+        this.number = this.$store.state.cartInfo[1]
+      },
+      immediate: true
+    }
+  },
   methods: {
     phoneLogin () {
       if (!localStorage.uid) {
         this.$store.state.loginBox.style.cssText = 'display:block;'
       }
+    },
+    handleScroll () {
+      this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      if (this.scrollTop > 60) {
+        this.top = true
+      } else {
+        this.top = false
+      }
+    },
+    toTop () {
+      let timer = setInterval(() => {
+        let ispeed = Math.floor(-this.scrollTop / 5)
+        document.documentElement.scrollTop = document.body.scrollTop = this.scrollTop + ispeed
+        if (this.scrollTop === 0) {
+          clearInterval(timer)
+        }
+      }, 16)
     }
+  },
+  mounted () {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
@@ -172,6 +215,9 @@ export default {
             left 0
             width 35px
             height 35px
+            transition 0.3s
+            &:hover
+                background-color #e32332
             a
                 height 35px
                 display block

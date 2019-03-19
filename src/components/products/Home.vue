@@ -19,6 +19,11 @@ export default {
     ProductDetail,
     ProductInfo
   },
+  watch: {
+    '$route': function () {
+      this.product(this.$route.params.pid)
+    }
+  },
   methods: {
     product (pid) {
       var url = `/api/product/product?pid=${pid}`
@@ -32,7 +37,6 @@ export default {
         this.axios.get(url).then(result => {
           this.info.cid = result.data.data[0].class
         })
-        console.log(this.info)
       })
     }
   },
