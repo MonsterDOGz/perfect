@@ -35,7 +35,7 @@
                   <img :src="'/api/'+it.pic[0]" :title="it.pname">
                 </router-link>
                 <p class="product_name" :title="it.pname">{{it.pname}}</p>
-                <p class="price">￥ {{it.price}}</p>
+                <p class="price">{{it.price | myCurrency('￥')}}</p>
                 <div class="add">
                   <router-link :to="'/products/'+it.pid" class="btn" title="加入购物车">
                     <span></span>

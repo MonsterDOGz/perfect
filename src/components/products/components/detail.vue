@@ -14,7 +14,7 @@
           <div class="bd">
             <div class="tempWrap">
               <ul ref="bigBox">
-                <li v-for="item in getInfo.pic" :key="item" ref="bigItem">
+                <li v-for="item in getInfo.pic" :key="item">
                   <img :src="'/api/'+item">
                 </li>
               </ul>
@@ -22,8 +22,8 @@
           </div>
           <div class="hd">
             <ul>
-              <li v-for="(item, index) of getInfo.pic" :key="item" ref="smallItem" @click="toubor($event, index)">
-                <img :src="'/api/'+item">
+              <li v-for="(item, index) of getInfo.pic" :key="item" @click="toubor($event, index)">
+                <img :src="'/api/'+item" ref="smallItem" :class="{'show':!index}">
               </li>
             </ul>
           </div>
@@ -96,6 +96,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import { setInterval } from 'timers'
 export default {
   props: ['getInfo'],
   data () {
@@ -140,6 +141,8 @@ export default {
     addCart () {
       if (!localStorage.uid) {
         alert('请先登录')
+      } else if (this.styl === '') {
+        alert('请选择商品样式！')
       } else {
         var url = `/api/cart/addProduct?uid=${localStorage.uid}&pid=${this.getInfo.pid}&pname=${this.getInfo.pname}&style=${this.styl}&price=${this.getInfo.price}&pic=${this.getInfo.pic}&num=${this.num}&stock=${this.getInfo.stock}`
         this.axios.get(url).then(result => {
@@ -162,23 +165,37 @@ export default {
         }
       })
     },
-    pic () {
-      // let bigBox = this.$refs.bigBox
-      // let bigItem = this.$refs.bigItem
+    pic (len) {
+      let bigBox = this.$refs.bigBox
       let smallItem = this.$refs.smallItem
-      for (let i = 0; i < smallItem.length; i++) {
-        // console.log(i)
-      }
+      let i = 0
+      setInterval(() => {
+        bigBox.style.cssText = `margin-left:-${i * 430}px`
+        for (let key of smallItem) {
+          key.style.cssText = 'opacity:0.4;'
+        }
+        for (let n = 0; n < smallItem.length; n++) {
+          smallItem[i].style.cssText = 'opacity:1;'
+        }
+        i++
+        if (i === len) {
+          i = 0
+        }
+      }, 3000)
     },
     toubor (e, index) {
       let bigBox = this.$refs.bigBox
+      let smallItem = this.$refs.smallItem
       bigBox.style.cssText = `margin-left:-${index * 430}px`
+      for (let key of smallItem) {
+        key.style.cssText = 'opacity:0.4;'
+      }
       e.target.style.cssText = 'opacity:1;'
     },
     ...mapMutations(['cart'])
   },
   updated () {
-    this.pic()
+    this.pic(this.getInfo.pic.length)
   }
 }
 </script>
@@ -222,6 +239,7 @@ export default {
               position relative
               overflow hidden
               width 1720px
+              transition 0.5s
               li
                 float left
                 width 430px
@@ -241,7 +259,6 @@ export default {
             margin-right -10px
             overflow hidden
             li
-              opacity 0.4
               float left
               text-align center
               img
@@ -249,6 +266,9 @@ export default {
                 margin-right 10px
                 width 100px
                 height 100px
+                opacity 0.4
+              .show
+                opacity 1
       .property
         width 684px
         font-size 14px
@@ -338,6 +358,8 @@ export default {
                 height 22px
                 vertical-align middle
                 cursor pointer
+                &:hover
+                  background-color #f0f0f0
               input
                 width 32px
                 height 20px
@@ -360,6 +382,8 @@ export default {
                 cursor pointer
                 position absolute
                 right 0
+                &:hover
+                  background-color #f0f0f0
             .stock
               color #999
               font

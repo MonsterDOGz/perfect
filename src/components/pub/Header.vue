@@ -47,7 +47,7 @@
                 </ul>
                 <ul class="user_info" v-show="!isLogin">
                     <li class="first_li" @click="phoneLogin"><a href="javascript:;">登录</a></li>
-                    <li><a href="javascript:;">注册</a></li>
+                    <li><router-link :to="'/reg'">注册</router-link></li>
                 </ul>
                 <ul class="user_info" v-show="isLogin">
                     <li class="first_li">
