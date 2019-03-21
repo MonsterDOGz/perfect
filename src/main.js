@@ -17,8 +17,8 @@ Vue.prototype.axios = axios
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0)
 })
-
-Vue.filter('myCurrency', function (myInput, arg) {
+// 价格过滤器
+Vue.filter('myCurrency', (myInput, arg) => {
   let result = arg + myInput
   return result
 })

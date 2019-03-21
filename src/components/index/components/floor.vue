@@ -190,6 +190,8 @@ export default {
                 margin 15px 15px 5px 15px
                 max-height 38px
                 overflow hidden
+                text-overflow ellipsis
+                white-space nowrap
               .price
                   font-size 18px
                   color #eb0303

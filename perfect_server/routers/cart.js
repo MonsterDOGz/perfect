@@ -54,7 +54,6 @@ router.get('/updateCart', (req, res) => {
   var uid = req.query.uid
   var pid = req.query.pid
   var num = req.query.num
-  console.log(num)
   var sql = `UPDATE shopping_cart SET num=? WHERE uid=? AND pid=?`
   pool.query(sql, [num, uid, pid], (err, result) => {
     if (err) throw err
